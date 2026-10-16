@@ -1,4 +1,4 @@
-##  Gamma Approximation Diagnostics
+##  Gamma Approximation Diagnostics &backup_method
 
 ### 1. Proposed Evaluation Criteria
 
@@ -125,3 +125,26 @@ In the original Gemfinder model, can observed survey response categories be used
 Does "real instance data" specifically mean comparing actual classrooms, or are comparisons between groups derived from real survey datasets acceptable?
 
 I have already analysed the RY_24 and RY25 survey datasets, but I want to make sure the analysis is consistent with the original model before interpreting the Gamma fitting errors as genuine failure
+
+
+### October 9 Milestone: Backup Method Implementation
+
+Implemented an empirical Monte Carlo backup estimator as an alternative to the Gamma approximation.
+
+The backup method directly estimates the 95th percentile from simulated values of the test statistic, avoiding the assumption that its distribution follows a Gamma distribution.
+
+An independent evaluation framework was also implemented to compare Gamma and Monte Carlo estimates using separate estimation and reference samples.
+
+**Preliminary survey-derived proxy results:**
+
+| Candidate configuration | Gamma Q95 error | Monte Carlo Q95 error |
+|---|---:|---:|
+| ry14: RY25 Pre vs Post | 3.02% | 0.53% |
+| ry11: RY24 vs RY25 Pre | 0.57% | 0.88% |
+| ry11: RY25 Pre vs Post | 1.40% | 0.17% |
+
+Monte Carlo achieved lower Q95 error in two of the three evaluated configurations, while Gamma performed better in one.
+
+**Limitation:** These configurations use observed survey responses as proxies for latent student types. Therefore, the results are exploratory and do not yet establish performance on validated real classroom failure cases.
+
+**Next step:** Evaluate the backup method on confirmed failure configurations using the original Gemfinder simulation model, with repeated independent runs.
