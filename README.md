@@ -145,6 +145,34 @@ An independent evaluation framework was also implemented to compare Gamma and Mo
 
 Monte Carlo achieved lower Q95 error in two of the three evaluated configurations, while Gamma performed better in one.
 
+
+### Case 4: Gamma vs Monte Carlo Backup Validation
+
+We evaluated the Gamma approximation and Monte Carlo empirical estimation for Case 4 (`n = 10`, `m = 1000`), using fixed latent-type counts of `[2, 3, 3, 2]` and `[200, 300, 300, 200]`.
+
+The R simulation workflow is implemented in `repeat_case4_validation.R`. The exported `d_hat` simulation draws are stored in `validated_draws/case4_original_model_draws.csv`.
+
+To reproduce the Python comparison, run:
+
+```bash
+bash run_case4_comparison.sh
+```
+
+The evaluation uses 2,000 draws for Gamma fitting, 2,000 draws for Monte Carlo empirical estimation, and 10,000 reference draws.
+
+**Single-evaluation results:**
+
+| Method | Q95 Relative Error |
+|---|---:|
+| Gamma approximation | 10.59% |
+| Monte Carlo empirical | 5.05% |
+
+In this evaluation, Monte Carlo empirical estimation produced a lower Q95 relative error than the Gamma approximation.
+
+Results are saved in `results/case4_original_model/backup_method_comparison.csv`.
+
+This is a single comparison for Case 4, not evidence that Monte Carlo consistently outperforms Gamma across repeated evaluations or other configurations. Equivalence to the original R simulation implementation should also be verified before treating this as fully validated original-model evidence.
+
 **Limitation:** These configurations use observed survey responses as proxies for latent student types. Therefore, the results are exploratory and do not yet establish performance on validated real classroom failure cases.
 
 **Next step:** Evaluate the backup method on confirmed failure configurations using the original Gemfinder simulation model, with repeated independent runs.
